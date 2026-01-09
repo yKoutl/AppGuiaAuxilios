@@ -15,7 +15,12 @@ import {
   ActivityIndicator,
   Modal,
   Pressable,
+  StatusBar,
+  Image,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Bot } from 'lucide-react-native';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Inicializar Gemini AI con variable de entorno
@@ -68,13 +73,17 @@ const ErrorModal = ({ visible, onClose, message }) => (
   </Modal>
 );
 
-const AIScreen = () => {
+const AIScreen = ({ navigation }) => {
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorModalVisible, setErrorModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const flatListRef = useRef(null);
+
+  const handleMenuPress = () => {
+    navigation.openDrawer();
+  };
 
   // Configurar el modelo con instrucciones
   const model = genAI.getGenerativeModel({
@@ -182,11 +191,68 @@ Importante: Si no estás seguro de algo, admítelo y recomienda buscar atención
   );
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={100}
-    >
+    <SafeAreaView style={styles.container} edges={['left', 'right', 'bottom']}>
+      <StatusBar barStyle="light-content" backgroundColor="#DC2626" />
+      
+      {/* Header personalizado */}
+      <LinearGradient
+        colors={['#DC2626', '#B91C1C', '#991B1B']}
+        style={styles.header}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        {/* Elementos decorativos */}
+        <View style={styles.decorativeIconLeft}>
+          <Bot size={60} color="rgba(255, 255, 255, 0.08)" strokeWidth={1.5} />
+        </View>
+        <View style={styles.decorativeIconRight}>
+          <Bot size={40} color="rgba(255, 255, 255, 0.08)" strokeWidth={1.5} />
+        </View>
+
+        {/* Top Bar */}
+        <View style={styles.topBar}>
+          <TouchableOpacity
+            style={styles.menuButton}
+            onPress={handleMenuPress}
+            activeOpacity={0.7}
+          >
+            <View style={styles.menuIcon}>
+              <View style={styles.menuLine} />
+              <View style={styles.menuLine} />
+              <View style={styles.menuLine} />
+            </View>
+          </TouchableOpacity>
+
+          <View style={styles.avatarContainer}>
+            <Image
+              source={require('../../assets/LogoContigoPE.png')}
+              style={styles.avatar}
+              resizeMode="contain"
+            />
+            <View style={styles.avatarBorder} />
+          </View>
+        </View>
+
+        {/* Contenido */}
+        <View style={styles.content}>
+          <View style={styles.titleSection}>
+            <View style={styles.iconCircle}>
+              <Bot size={28} color="#FDE047" strokeWidth={2.5} />
+            </View>
+            <View style={styles.titleTextContainer}>
+              <Text style={styles.greeting}>Powered by Gemini AI</Text>
+              <Text style={styles.headerTitle}>Asistente IA</Text>
+              <Text style={styles.headerSubtitle}>Consultas de primeros auxilios</Text>
+            </View>
+          </View>
+        </View>
+      </LinearGradient>
+
+      <KeyboardAvoidingView
+        style={styles.keyboardView}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={100}
+      >
       {/* LISTA DE MENSAJES */}
       <FlatList
         ref={flatListRef}
@@ -235,7 +301,7 @@ Importante: Si no estás seguro de algo, admítelo y recomienda buscar atención
         >
           <Text style={styles.sendButtonText}>➤</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
 
       {/* Modal de error */}
       <ErrorModal
@@ -243,14 +309,120 @@ Importante: Si no estás seguro de algo, admítelo y recomienda buscar atención
         onClose={() => setErrorModalVisible(false)}
         message={errorMessage}
       />
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: '#F5F5F5',
+  },
+  header: {
+    paddingTop: 16,
+    paddingBottom: 16,
+    paddingHorizontal: 20,
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  decorativeIconLeft: {
+    position: 'absolute',
+    top: -10,
+    left: -20,
+    transform: [{ rotate: '-15deg' }],
+  },
+  decorativeIconRight: {
+    position: 'absolute',
+    top: 30,
+    right: -10,
+    transform: [{ rotate: '15deg' }],
+  },
+  topBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+    zIndex: 1,
+  },
+  menuButton: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  menuIcon: {
+    width: 24,
+    height: 18,
+    justifyContent: 'space-between',
+  },
+  menuLine: {
+    width: '100%',
+    height: 3,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 2,
+  },
+  avatarContainer: {
+    position: 'relative',
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    borderWidth: 3,
+    borderColor: '#FFF',
+    backgroundColor: '#FFFFFF',
+  },
+  avatarBorder: {
+    position: 'absolute',
+    width: 58,
+    height: 58,
+    borderRadius: 29,
+    borderWidth: 2,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+    top: -4,
+    left: -4,
+  },
+  content: {
+    zIndex: 1,
+  },
+  titleSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  iconCircle: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  titleTextContainer: {
+    flex: 1,
+  },
+  greeting: {
+    fontSize: 12,
+    color: '#FEE2E2',
+    marginBottom: 2,
+    fontWeight: '500',
+  },
+  headerTitle: {
+    fontSize: 26,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    marginBottom: 2,
+    letterSpacing: 0.3,
+  },
+  headerSubtitle: {
+    fontSize: 14,
+    color: '#FDE047',
+    fontWeight: '600',
+  },
+  keyboardView: {
+    flex: 1,
   },
   messagesList: {
     padding: 16,

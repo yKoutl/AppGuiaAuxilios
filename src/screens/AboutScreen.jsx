@@ -82,11 +82,11 @@ const AboutScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right', 'bottom']}>
-      <StatusBar barStyle="light-content" backgroundColor="#0891B2" />
+      <StatusBar barStyle="light-content" backgroundColor="#DC2626" />
       
       {/* Header personalizado */}
       <LinearGradient
-        colors={['#0891B2', '#0E7490']}
+        colors={['#DC2626', '#B91C1C', '#991B1B']}
         style={styles.header}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
   },
   headerSubtitle: {
     fontSize: 14,
-    color: '#DBEAFE',
+    color: '#FEE2E2',
     fontWeight: '500',
     marginTop: 2,
   },

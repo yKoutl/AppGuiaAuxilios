@@ -87,7 +87,7 @@ export default function NosPlanetScreen({ navigation }) {
 
       {/* Header personalizado */}
       <LinearGradient
-        colors={['#7C3AED', '#6D28D9']}
+        colors={['#7C3AED', '#6D28D9', '#5B21B6']}
         style={styles.header}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}

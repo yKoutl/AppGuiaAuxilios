@@ -163,7 +163,7 @@ export default function EmergencyServicesScreen({ navigation }) {
       
       {/* Header personalizado */}
       <LinearGradient
-        colors={['#DC2626', '#B91C1C']}
+        colors={['#DC2626', '#B91C1C', '#991B1B']}
         style={styles.header}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}

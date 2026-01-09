@@ -28,6 +28,7 @@ import {
   Mail,
   ExternalLink,
   X,
+  Settings,
 } from 'lucide-react-native';
 
 // Modal para Términos y Condiciones
@@ -250,16 +251,25 @@ export default function ConfigScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right', 'bottom']}>
-      <StatusBar barStyle="light-content" backgroundColor="#10B981" />
+      <StatusBar barStyle="light-content" backgroundColor="#DC2626" />
 
-      {/* Header personalizado */}
+      {/* Header personalizado mejorado */}
       <LinearGradient
-        colors={['#10B981', '#059669']}
+        colors={['#DC2626', '#B91C1C', '#991B1B']}
         style={styles.header}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
       >
-        <View style={styles.headerContainer}>
+        {/* Elementos decorativos */}
+        <View style={styles.decorativeIconLeft}>
+          <Settings size={60} color="rgba(255, 255, 255, 0.08)" strokeWidth={1.5} />
+        </View>
+        <View style={styles.decorativeIconRight}>
+          <Bell size={40} color="rgba(255, 255, 255, 0.08)" strokeWidth={1.5} />
+        </View>
+
+        {/* Top Bar con Menu y Avatar */}
+        <View style={styles.topBar}>
           <TouchableOpacity
             style={styles.menuButton}
             onPress={handleMenuPress}
@@ -272,20 +282,28 @@ export default function ConfigScreen({ navigation }) {
             </View>
           </TouchableOpacity>
 
-          <View style={styles.headerTextContainer}>
-            <Text style={styles.headerGreeting}>Hola, Juan David</Text>
-            <View style={styles.headerTitleRow}>
-              <Settings color="#FBBF24" size={28} strokeWidth={2.5} />
-              <Text style={styles.headerTitle}>Configuración</Text>
-            </View>
-            <Text style={styles.headerSubtitle}>Personaliza tu experiencia</Text>
+          <View style={styles.avatarContainer}>
+            <Image
+              source={require('../../assets/LogoContigoPE.png')}
+              style={styles.avatar}
+              resizeMode="contain"
+            />
+            <View style={styles.avatarBorder} />
           </View>
+        </View>
 
-          <Image
-            source={require('../../assets/LogoContigoPE.png')}
-            style={styles.headerLogo}
-            resizeMode="contain"
-          />
+        {/* Contenido Principal */}
+        <View style={styles.content}>
+          <View style={styles.titleSection}>
+            <View style={styles.iconCircle}>
+              <Settings size={28} color="#FDE047" strokeWidth={2.5} />
+            </View>
+            <View style={styles.titleTextContainer}>
+              <Text style={styles.greeting}>Hola, Usuario</Text>
+              <Text style={styles.headerTitle}>Configuración</Text>
+              <Text style={styles.headerSubtitle}>Personaliza tu experiencia</Text>
+            </View>
+          </View>
         </View>
       </LinearGradient>
 
@@ -440,24 +458,35 @@ export default function ConfigScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: '#F5F5F5',
   },
   header: {
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    paddingTop: 16,
+    paddingBottom: 20,
+    paddingHorizontal: 20,
+    position: 'relative',
+    overflow: 'hidden',
   },
-  headerContainer: {
+  decorativeIconLeft: {
+    position: 'absolute',
+    top: -10,
+    left: -20,
+    transform: [{ rotate: '-15deg' }],
+  },
+  decorativeIconRight: {
+    position: 'absolute',
+    top: 30,
+    right: -10,
+    transform: [{ rotate: '15deg' }],
+  },
+  topBar: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+    zIndex: 1,
   },
   menuButton: {
-    padding: 8,
     width: 48,
     height: 48,
     borderRadius: 24,
@@ -476,39 +505,63 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 2,
   },
-  headerTextContainer: {
-    flex: 1,
-    marginLeft: 16,
+  avatarContainer: {
+    position: 'relative',
   },
-  headerGreeting: {
-    fontSize: 13,
-    color: 'rgba(255, 255, 255, 0.95)',
-    fontWeight: '500',
-    marginBottom: 2,
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    borderWidth: 3,
+    borderColor: '#FFF',
+    backgroundColor: '#FFFFFF',
   },
-  headerTitleRow: {
+  avatarBorder: {
+    position: 'absolute',
+    width: 58,
+    height: 58,
+    borderRadius: 29,
+    borderWidth: 2,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+    top: -4,
+    left: -4,
+  },
+  content: {
+    zIndex: 1,
+  },
+  titleSection: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+  },
+  iconCircle: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  titleTextContainer: {
+    flex: 1,
+  },
+  greeting: {
+    fontSize: 14,
+    color: '#FEE2E2',
+    marginBottom: 2,
+    fontWeight: '500',
   },
   headerTitle: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: '800',
     color: '#FFFFFF',
+    marginBottom: 2,
     letterSpacing: 0.3,
   },
   headerSubtitle: {
     fontSize: 14,
     color: '#FDE047',
-    fontWeight: '500',
-    marginTop: 2,
-  },
-  headerLogo: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
-    padding: 8,
+    fontWeight: '600',
   },
   scrollView: {
     flex: 1,
