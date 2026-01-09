@@ -83,32 +83,44 @@ export default function NosPlanetScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right', 'bottom']}>
-      <StatusBar barStyle="light-content" backgroundColor="#DC2626" />
+      <StatusBar barStyle="light-content" backgroundColor="#7C3AED" />
 
-      {/* Header */}
+      {/* Header personalizado */}
       <LinearGradient
-        colors={['#DC2626', '#B91C1C']}
+        colors={['#7C3AED', '#6D28D9']}
         style={styles.header}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
       >
-        <TouchableOpacity
-          style={styles.menuButton}
-          onPress={handleMenuPress}
-          activeOpacity={0.7}
-        >
-          <View style={styles.menuIcon}>
-            <View style={styles.menuLine} />
-            <View style={styles.menuLine} />
-            <View style={styles.menuLine} />
+        <View style={styles.headerContainer}>
+          <TouchableOpacity
+            style={styles.menuButton}
+            onPress={handleMenuPress}
+            activeOpacity={0.7}
+          >
+            <View style={styles.menuIcon}>
+              <View style={styles.menuLine} />
+              <View style={styles.menuLine} />
+              <View style={styles.menuLine} />
+            </View>
+          </TouchableOpacity>
+
+          <View style={styles.headerTextContainer}>
+            <View style={styles.headerTitleRow}>
+              <Building2 color="#FCD34D" size={28} strokeWidth={2.5} />
+              <Text style={styles.headerTitle}>Nos Planet S.A.C</Text>
+            </View>
+            <Text style={styles.headerSubtitle}>Empresas y organizaciones aliadas</Text>
           </View>
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Nos Planet S.A.C</Text>
-        <Image
-          source={require('../../assets/logo.png')}
-          style={styles.headerLogo}
-          resizeMode="contain"
-        />
+
+          <View style={styles.logoCircle}>
+            <Image
+              source={require('../../assets/logo.png')}
+              style={styles.headerLogo}
+              resizeMode="contain"
+            />
+          </View>
+        </View>
       </LinearGradient>
 
       <ScrollView 
@@ -215,20 +227,27 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingVertical: 14,
+    paddingVertical: 16,
     elevation: 4,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   menuButton: {
     padding: 8,
-    width: 40,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   menuIcon: {
     width: 24,
@@ -241,11 +260,40 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 2,
   },
+  headerTextContainer: {
+    flex: 1,
+    marginLeft: 16,
+  },
+  headerTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
   headerTitle: {
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: '800',
     color: '#FFFFFF',
-    letterSpacing: 0.5,
+    letterSpacing: 0.3,
+  },
+  headerSubtitle: {
+    fontSize: 14,
+    color: '#E9D5FF',
+    fontWeight: '500',
+    marginTop: 2,
+  },
+  logoCircle: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 8,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
   },
   headerLogo: {
     width: 40,

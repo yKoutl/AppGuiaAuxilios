@@ -238,6 +238,10 @@ export default function ConfigScreen({ navigation }) {
   const [termsModalVisible, setTermsModalVisible] = React.useState(false);
   const [helpModalVisible, setHelpModalVisible] = React.useState(false);
 
+  const handleMenuPress = () => {
+    navigation.openDrawer();
+  };
+
   const openEmail = () => {
     Linking.openURL('mailto:soporte@contigope.pe').catch((err) =>
       console.error('Error al abrir email:', err)
@@ -246,32 +250,43 @@ export default function ConfigScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right', 'bottom']}>
-      <StatusBar barStyle="light-content" backgroundColor="#DC2626" />
+      <StatusBar barStyle="light-content" backgroundColor="#10B981" />
 
-      {/* Header */}
+      {/* Header personalizado */}
       <LinearGradient
-        colors={['#DC2626', '#B91C1C']}
+        colors={['#10B981', '#059669']}
         style={styles.header}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
       >
-        <TouchableOpacity
-          style={styles.menuButton}
-          onPress={handleMenuPress}
-          activeOpacity={0.7}
-        >
-          <View style={styles.menuIcon}>
-            <View style={styles.menuLine} />
-            <View style={styles.menuLine} />
-            <View style={styles.menuLine} />
+        <View style={styles.headerContainer}>
+          <TouchableOpacity
+            style={styles.menuButton}
+            onPress={handleMenuPress}
+            activeOpacity={0.7}
+          >
+            <View style={styles.menuIcon}>
+              <View style={styles.menuLine} />
+              <View style={styles.menuLine} />
+              <View style={styles.menuLine} />
+            </View>
+          </TouchableOpacity>
+
+          <View style={styles.headerTextContainer}>
+            <Text style={styles.headerGreeting}>Hola, Juan David</Text>
+            <View style={styles.headerTitleRow}>
+              <Settings color="#FBBF24" size={28} strokeWidth={2.5} />
+              <Text style={styles.headerTitle}>Configuración</Text>
+            </View>
+            <Text style={styles.headerSubtitle}>Personaliza tu experiencia</Text>
           </View>
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Configuración</Text>
-        <Image
-          source={require('../../assets/logo.png')}
-          style={styles.headerLogo}
-          resizeMode="contain"
-        />
+
+          <Image
+            source={require('../../assets/LogoContigoPE.png')}
+            style={styles.headerLogo}
+            resizeMode="contain"
+          />
+        </View>
       </LinearGradient>
 
       <ScrollView 
@@ -428,20 +443,27 @@ const styles = StyleSheet.create({
     backgroundColor: '#F9FAFB',
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingVertical: 14,
+    paddingVertical: 16,
     elevation: 4,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   menuButton: {
     padding: 8,
-    width: 40,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   menuIcon: {
     width: 24,
@@ -454,15 +476,39 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 2,
   },
+  headerTextContainer: {
+    flex: 1,
+    marginLeft: 16,
+  },
+  headerGreeting: {
+    fontSize: 13,
+    color: 'rgba(255, 255, 255, 0.95)',
+    fontWeight: '500',
+    marginBottom: 2,
+  },
+  headerTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
   headerTitle: {
-    fontSize: 20,
-    fontWeight: '700',
+    fontSize: 24,
+    fontWeight: '800',
     color: '#FFFFFF',
-    letterSpacing: 0.5,
+    letterSpacing: 0.3,
+  },
+  headerSubtitle: {
+    fontSize: 14,
+    color: '#FDE047',
+    fontWeight: '500',
+    marginTop: 2,
   },
   headerLogo: {
-    width: 40,
-    height: 40,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    padding: 8,
   },
   scrollView: {
     flex: 1,

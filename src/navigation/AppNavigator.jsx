@@ -111,20 +111,7 @@ const AppNavigator = () => {
           paddingVertical: 4,
         },
         drawerActiveBackgroundColor: 'rgba(220, 38, 38, 0.1)',
-        headerStyle: {
-          backgroundColor: '#DC2626',
-        },
-        headerTintColor: '#FFFFFF',
-        headerTitleStyle: {
-          fontWeight: '700',
-        },
-        headerRight: () => (
-          <Image
-            source={require('../../assets/LogoContigoPE.png')}
-            style={{ width: 40, height: 40, marginRight: 15 }}
-            resizeMode="contain"
-          />
-        ),
+        headerShown: false,
       }}
     >
       {/* PRINCIPAL */}
@@ -135,7 +122,6 @@ const AppNavigator = () => {
           drawerIcon: ({ color, size }) => (
             <Home color={color} size={size} />
           ),
-          headerShown: false,
         }}
       />
 
