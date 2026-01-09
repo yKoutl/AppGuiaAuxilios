@@ -25,6 +25,7 @@ import {
   Stethoscope,
   Shield,
   Activity,
+  Info,
 } from 'lucide-react-native';
 
 const ValueCard = ({ icon: Icon, title, description, color }) => (

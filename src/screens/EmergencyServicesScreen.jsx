@@ -25,6 +25,7 @@ import {
   Ambulance,
   X,
   ExternalLink,
+  AlertCircle,
 } from 'lucide-react-native';
 
 const EmergencyServiceModal = ({ visible, onClose, service }) => {
