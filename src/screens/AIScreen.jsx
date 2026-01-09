@@ -301,6 +301,8 @@ Importante: Si no estás seguro de algo, admítelo y recomienda buscar atención
         >
           <Text style={styles.sendButtonText}>➤</Text>
         </TouchableOpacity>
+      </View>
+
       </KeyboardAvoidingView>
 
       {/* Modal de error */}
