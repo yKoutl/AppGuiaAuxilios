@@ -13,7 +13,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   ActivityIndicator,
-  Alert,
+  Modal,
+  Pressable,
 } from 'react-native';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
@@ -26,10 +27,53 @@ if (!GEMINI_API_KEY) {
 
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY || '');
 
+// Modal de error mejorado
+const ErrorModal = ({ visible, onClose, message }) => (
+  <Modal
+    animationType="fade"
+    transparent={true}
+    visible={visible}
+    onRequestClose={onClose}
+  >
+    <Pressable style={styles.modalOverlay} onPress={onClose}>
+      <Pressable style={styles.modalContent} onPress={(e) => e.stopPropagation()}>
+        {/* Icono de error */}
+        <View style={styles.errorIconContainer}>
+          <Text style={styles.errorIcon}>⚠️</Text>
+        </View>
+        
+        {/* Título */}
+        <Text style={styles.modalTitle}>Error de Conexión</Text>
+        
+        {/* Mensaje */}
+        <Text style={styles.modalMessage}>{message}</Text>
+        
+        {/* Detalles */}
+        <View style={styles.modalDetails}>
+          <Text style={styles.modalDetailTitle}>Por favor verifica:</Text>
+          <Text style={styles.modalDetailItem}>• Tu conexión a internet</Text>
+          <Text style={styles.modalDetailItem}>• Que la API key esté configurada</Text>
+        </View>
+
+        {/* Botón */}
+        <TouchableOpacity
+          style={styles.modalButton}
+          onPress={onClose}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.modalButtonText}>Entendido</Text>
+        </TouchableOpacity>
+      </Pressable>
+    </Pressable>
+  </Modal>
+);
+
 const AIScreen = () => {
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState('');
   const [loading, setLoading] = useState(false);
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const flatListRef = useRef(null);
 
   // Configurar el modelo con instrucciones
@@ -108,24 +152,9 @@ Importante: Si no estás seguro de algo, admítelo y recomienda buscar atención
     } catch (error) {
       console.error('Error con Gemini:', error);
       
-      // Modal de error mejorado
-      Alert.alert(
-        '❌ Error de Conexión',
-        'No pude conectar con el asistente inteligente.\n\n' +
-        'Por favor verifica:\n' +
-        '• Tu conexión a internet\n' +
-        '• Que la API key esté configurada correctamente\n\n' +
-        'Si el problema persiste, intenta reiniciar la aplicación.',
-        [
-          {
-            text: 'Entendido',
-            style: 'default'
-          }
-        ],
-        {
-          cancelable: true
-        }
-      );
+      // Mostrar modal de error mejorado
+      setErrorMessage('No pude conectar con el asistente inteligente.');
+      setErrorModalVisible(true);
     } finally {
       setLoading(false);
     }
@@ -207,6 +236,13 @@ Importante: Si no estás seguro de algo, admítelo y recomienda buscar atención
           <Text style={styles.sendButtonText}>➤</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Modal de error */}
+      <ErrorModal
+        visible={errorModalVisible}
+        onClose={() => setErrorModalVisible(false)}
+        message={errorMessage}
+      />
     </KeyboardAvoidingView>
   );
 };
@@ -333,6 +369,89 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#FFFFFF',
     fontWeight: '600',
+  },
+
+  // Modal de error
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  modalContent: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    padding: 28,
+    width: '100%',
+    maxWidth: 360,
+    alignItems: 'center',
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+  },
+  errorIconContainer: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#FEE2E2',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  errorIcon: {
+    fontSize: 48,
+  },
+  modalTitle: {
+    fontSize: 22,
+    fontWeight: '800',
+    color: '#1F2937',
+    marginBottom: 12,
+    textAlign: 'center',
+  },
+  modalMessage: {
+    fontSize: 16,
+    color: '#4B5563',
+    textAlign: 'center',
+    lineHeight: 24,
+    marginBottom: 20,
+  },
+  modalDetails: {
+    width: '100%',
+    backgroundColor: '#F9FAFB',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 24,
+  },
+  modalDetailTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#1F2937',
+    marginBottom: 12,
+  },
+  modalDetailItem: {
+    fontSize: 14,
+    color: '#4B5563',
+    lineHeight: 22,
+    paddingLeft: 8,
+  },
+  modalButton: {
+    backgroundColor: '#DC2626',
+    paddingVertical: 14,
+    paddingHorizontal: 48,
+    borderRadius: 12,
+    elevation: 3,
+    shadowColor: '#DC2626',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+  },
+  modalButtonText: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#FFFFFF',
   },
 });
 

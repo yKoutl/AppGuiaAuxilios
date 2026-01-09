@@ -1,5 +1,5 @@
 // ============================================
-// PANTALLA ACERCA DE CONTIGOPE
+// PANTALLA NOS PLANET S.A.C
 // ============================================
 
 import React from 'react';
@@ -19,16 +19,18 @@ import {
   Users,
   Target,
   Sparkles,
+  Globe,
   Mail,
+  Award,
   ExternalLink,
   Stethoscope,
-  Shield,
-  Activity,
+  Building2,
+  Calendar,
 } from 'lucide-react-native';
 
 const ValueCard = ({ icon: Icon, title, description, color }) => (
   <View style={styles.valueCard}>
-    <View style={[styles.valueIconContainer, { backgroundColor: `${color}15` }]}>
+    <View style={[styles.valueIconCircle, { backgroundColor: `${color}20` }]}>
       <Icon color={color} size={28} />
     </View>
     <Text style={styles.valueTitle}>{title}</Text>
@@ -36,13 +38,13 @@ const ValueCard = ({ icon: Icon, title, description, color }) => (
   </View>
 );
 
-const AboutScreen = ({ navigation }) => {
+export default function NosPlametScreen({ navigation }) {
   const handleMenuPress = () => {
     navigation.openDrawer();
   };
 
   const openEmail = () => {
-    Linking.openURL('mailto:soporte@contigope.pe').catch((err) =>
+    Linking.openURL('mailto:contacto@nosplanet.com').catch((err) =>
       console.error('Error al abrir email:', err)
     );
   };
@@ -52,37 +54,37 @@ const AboutScreen = ({ navigation }) => {
       id: 1,
       icon: Heart,
       title: 'Compromiso',
-      description: 'Salvar vidas con información precisa y confiable',
-      color: '#DC2626',
+      description: 'Dedicados a crear soluciones tecnológicas que impacten positivamente',
+      color: '#EF4444',
     },
     {
       id: 2,
       icon: Users,
       title: 'Accesibilidad',
-      description: 'Primeros auxilios al alcance de todos',
-      color: '#B91C1C',
+      description: 'Tecnología al alcance de todos los peruanos',
+      color: '#DC2626',
     },
     {
       id: 3,
-      icon: Shield,
-      title: 'Confiabilidad',
-      description: 'Guías verificadas por profesionales médicos',
-      color: '#991B1B',
+      icon: Target,
+      title: 'Precisión',
+      description: 'Desarrollo de software con los más altos estándares',
+      color: '#B91C1C',
     },
     {
       id: 4,
       icon: Sparkles,
       title: 'Innovación',
-      description: 'IA y tecnología para ayudar en emergencias',
-      color: '#7F1D1D',
+      description: 'Incorporando IA y tecnologías emergentes',
+      color: '#DC2626',
     },
   ];
 
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right', 'bottom']}>
       <StatusBar barStyle="light-content" backgroundColor="#DC2626" />
-      
-      <ScrollView
+
+      <ScrollView 
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
@@ -94,25 +96,24 @@ const AboutScreen = ({ navigation }) => {
           <TouchableOpacity onPress={handleMenuPress} style={styles.menuButton}>
             <Text style={styles.menuIcon}>☰</Text>
           </TouchableOpacity>
-          
+
           <View style={styles.headerLogoContainer}>
-            <Activity color="#FFFFFF" size={48} strokeWidth={3} />
-            <Text style={styles.headerTitle}>ContigoPE</Text>
-            <Text style={styles.headerSubtitle}>Guía de Auxilios • Perú</Text>
+            <Building2 color="#FFFFFF" size={48} />
+            <Text style={styles.headerTitle}>NOS PLANET S.A.C</Text>
+            <Text style={styles.headerSubtitle}>Soluciones tecnológicas • Perú</Text>
           </View>
         </LinearGradient>
 
-        {/* Sección: Misión */}
+        {/* Misión */}
         <View style={styles.missionSection}>
           <View style={styles.missionCard}>
             <View style={styles.missionIconContainer}>
-              <Stethoscope color="#DC2626" size={48} />
+              <Stethoscope color="#DC2626" size={40} />
             </View>
             <Text style={styles.missionTitle}>Nuestra Misión</Text>
             <Text style={styles.missionText}>
-              Proporcionar acceso rápido y confiable a información de primeros
-              auxilios para todos los peruanos, utilizando tecnología de IA para
-              ofrecer asistencia inmediata en situaciones de emergencia.
+              Desarrollar soluciones tecnológicas innovadoras que mejoren la calidad de vida
+              de los peruanos, facilitando el acceso a información vital en momentos críticos.
             </Text>
             <Text style={styles.missionQuote}>
               "Creemos que cada segundo cuenta, y juntos podemos salvar vidas."
@@ -120,7 +121,7 @@ const AboutScreen = ({ navigation }) => {
           </View>
         </View>
 
-        {/* Sección: Valores */}
+        {/* Valores */}
         <View style={styles.valuesSection}>
           <Text style={styles.sectionTitle}>Nuestros Valores</Text>
           <View style={styles.valuesGrid}>
@@ -136,58 +137,66 @@ const AboutScreen = ({ navigation }) => {
           </View>
         </View>
 
-        {/* Características */}
-        <View style={styles.featuresSection}>
-          <Text style={styles.sectionTitle}>Características</Text>
-          <View style={styles.featuresList}>
-            <View style={styles.featureItem}>
-              <Text style={styles.featureBullet}>✓</Text>
-              <Text style={styles.featureText}>12 guías de primeros auxilios verificadas</Text>
+        {/* Historia */}
+        <View style={styles.historySection}>
+          <View style={styles.historyContent}>
+            <Calendar color="#FFFFFF" size={32} />
+            <Text style={styles.historyTitle}>Nuestra Historia</Text>
+            <Text style={styles.historyText}>
+              Fundada en 2024, NOS PLANET S.A.C nace de la visión de crear tecnología 
+              que salve vidas. ContigoPE es nuestro primer producto, diseñado específicamente 
+              para brindar asistencia médica de emergencia a todos los peruanos.
+            </Text>
+          </View>
+        </View>
+
+        {/* Proyectos */}
+        <View style={styles.projectsSection}>
+          <Text style={styles.sectionTitle}>Nuestros Proyectos</Text>
+          <View style={styles.projectCard}>
+            <View style={styles.projectHeader}>
+              <Heart color="#DC2626" size={24} />
+              <Text style={styles.projectName}>ContigoPE</Text>
             </View>
-            <View style={styles.featureItem}>
-              <Text style={styles.featureBullet}>✓</Text>
-              <Text style={styles.featureText}>Asistente IA con Gemini</Text>
-            </View>
-            <View style={styles.featureItem}>
-              <Text style={styles.featureBullet}>✓</Text>
-              <Text style={styles.featureText}>Mapa de servicios de emergencia</Text>
-            </View>
-            <View style={styles.featureItem}>
-              <Text style={styles.featureBullet}>✓</Text>
-              <Text style={styles.featureText}>Localización GPS en tiempo real</Text>
-            </View>
-            <View style={styles.featureItem}>
-              <Text style={styles.featureBullet}>✓</Text>
-              <Text style={styles.featureText}>Acceso a números de emergencia</Text>
+            <Text style={styles.projectDescription}>
+              Aplicación de primeros auxilios con IA, GPS y guías médicas verificadas
+              para emergencias en Perú.
+            </Text>
+            <View style={styles.projectBadge}>
+              <Award color="#059669" size={16} />
+              <Text style={styles.projectBadgeText}>Proyecto Activo</Text>
             </View>
           </View>
         </View>
 
-        {/* Sección: Contacto */}
+        {/* Contacto */}
         <View style={styles.contactSection}>
-          <Text style={styles.sectionTitle}>Contacto</Text>
+          <Text style={styles.sectionTitle}>Contáctanos</Text>
           <TouchableOpacity
             style={styles.contactButton}
             onPress={openEmail}
             activeOpacity={0.8}
           >
             <Mail color="#DC2626" size={20} />
-            <Text style={styles.contactText}>soporte@contigope.pe</Text>
+            <Text style={styles.contactText}>contacto@nosplanet.com</Text>
             <ExternalLink color="#DC2626" size={16} />
           </TouchableOpacity>
+
+          <View style={styles.locationBox}>
+            <Globe color="#6B7280" size={20} />
+            <Text style={styles.locationText}>Lima, Perú 🇵🇪</Text>
+          </View>
         </View>
 
-        {/* Footer - Versión */}
+        {/* Footer */}
         <View style={styles.footer}>
-          <Text style={styles.footerText}>ContigoPE v1.0.0</Text>
-          <Text style={styles.footerCopyright}>
-            © 2026 ContigoPE. Todos los derechos reservados.
-          </Text>
+          <Text style={styles.footerText}>© 2024-2026 NOS PLANET S.A.C</Text>
+          <Text style={styles.footerSubtext}>Innovando para salvar vidas</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -218,7 +227,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   headerTitle: {
-    fontSize: 32,
+    fontSize: 28,
     fontWeight: '900',
     color: '#FFFFFF',
     marginTop: 16,
@@ -265,7 +274,7 @@ const styles = StyleSheet.create({
     color: '#4B5563',
     textAlign: 'center',
     lineHeight: 24,
-    marginBottom: 16,
+    marginBottom: 20,
   },
   missionQuote: {
     fontSize: 15,
@@ -273,6 +282,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     textAlign: 'center',
     lineHeight: 22,
+    paddingHorizontal: 20,
   },
 
   // Valores
@@ -303,7 +313,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.08,
     shadowRadius: 4,
   },
-  valueIconContainer: {
+  valueIconCircle: {
     width: 56,
     height: 56,
     borderRadius: 28,
@@ -325,36 +335,78 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
 
-  // Características
-  featuresSection: {
+  // Historia
+  historySection: {
+    marginHorizontal: 20,
+    marginBottom: 20,
+  },
+  historyContent: {
+    backgroundColor: '#7F1D1D',
+    borderRadius: 16,
+    padding: 24,
+    alignItems: 'center',
+  },
+  historyTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginTop: 12,
+    marginBottom: 12,
+  },
+  historyText: {
+    fontSize: 15,
+    color: 'rgba(255, 255, 255, 0.95)',
+    textAlign: 'center',
+    lineHeight: 22,
+  },
+
+  // Proyectos
+  projectsSection: {
     padding: 20,
   },
-  featuresList: {
+  projectCard: {
     backgroundColor: '#FFFFFF',
     borderRadius: 16,
     padding: 20,
+    borderLeftWidth: 4,
+    borderLeftColor: '#DC2626',
     elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.08,
     shadowRadius: 4,
   },
-  featureItem: {
+  projectHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 12,
+    gap: 8,
   },
-  featureBullet: {
-    fontSize: 18,
-    color: '#10B981',
+  projectName: {
+    fontSize: 20,
     fontWeight: '700',
-    marginRight: 12,
+    color: '#1F2937',
   },
-  featureText: {
-    flex: 1,
+  projectDescription: {
     fontSize: 15,
     color: '#4B5563',
     lineHeight: 22,
+    marginBottom: 12,
+  },
+  projectBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    backgroundColor: '#D1FAE5',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    gap: 6,
+  },
+  projectBadgeText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#059669',
   },
 
   // Contacto
@@ -367,6 +419,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     padding: 16,
     borderRadius: 12,
+    marginBottom: 12,
     gap: 12,
     elevation: 2,
     shadowColor: '#000',
@@ -380,6 +433,18 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#1F2937',
   },
+  locationBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    padding: 12,
+  },
+  locationText: {
+    fontSize: 15,
+    color: '#6B7280',
+    fontWeight: '500',
+  },
 
   // Footer
   footer: {
@@ -387,15 +452,13 @@ const styles = StyleSheet.create({
     paddingVertical: 24,
   },
   footerText: {
-    fontSize: 16,
-    fontWeight: '700',
+    fontSize: 14,
+    fontWeight: '600',
     color: '#6B7280',
     marginBottom: 4,
   },
-  footerCopyright: {
+  footerSubtext: {
     fontSize: 12,
     color: '#9CA3AF',
   },
 });
-
-export default AboutScreen;

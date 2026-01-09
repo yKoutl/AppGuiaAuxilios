@@ -6,7 +6,7 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import { Home, Bot, Settings, Info } from 'lucide-react-native';
+import { Home, Bot, Settings, Info, AlertCircle, Building2 } from 'lucide-react-native';
 
 // Importar pantallas
 import HomeScreen from '../screens/HomeScreen.jsx';
@@ -15,6 +15,8 @@ import MapScreen from '../screens/MapScreen.jsx';
 import AIScreen from '../screens/AIScreen.jsx';
 import AboutScreen from '../screens/AboutScreen.jsx';
 import ConfigScreen from '../screens/ConfigScreen.jsx';
+import EmergencyServicesScreen from '../screens/EmergencyServicesScreen.jsx';
+import NosPlametScreen from '../screens/NosPlametScreen.jsx';
 
 // Importar componente personalizado del drawer
 import CustomDrawerContent from '../components/CustomDrawerContent.jsx';
@@ -125,7 +127,7 @@ const AppNavigator = () => {
         ),
       }}
     >
-      {/* Opción: Inicio (Stack con Home, Detalle, Mapa) */}
+      {/* PRINCIPAL */}
       <Drawer.Screen
         name="Inicio"
         component={HomeStack}
@@ -137,7 +139,6 @@ const AppNavigator = () => {
         }}
       />
 
-      {/* Opción: Asistente IA */}
       <Drawer.Screen
         name="AsistenteIA"
         component={AIScreen}
@@ -149,7 +150,42 @@ const AppNavigator = () => {
         }}
       />
 
-      {/* Opción: Configuración */}
+      {/* EMERGENCIAS */}
+      <Drawer.Screen
+        name="Emergencias"
+        component={EmergencyServicesScreen}
+        options={{
+          title: 'Emergencias',
+          drawerIcon: ({ color, size }) => (
+            <AlertCircle color={color} size={size} />
+          ),
+        }}
+      />
+
+      {/* EXPLORAR */}
+      <Drawer.Screen
+        name="AcercaDe"
+        component={AboutScreen}
+        options={{
+          title: 'Acerca de ContigoPE',
+          drawerIcon: ({ color, size }) => (
+            <Info color={color} size={size} />
+          ),
+        }}
+      />
+
+      <Drawer.Screen
+        name="NosPlanet"
+        component={NosPlametScreen}
+        options={{
+          title: 'Nos Planet S.A.C',
+          drawerIcon: ({ color, size }) => (
+            <Building2 color={color} size={size} />
+          ),
+        }}
+      />
+
+      {/* PERSONALIZACIÓN */}
       <Drawer.Screen
         name="Configuracion"
         component={ConfigScreen}
@@ -157,18 +193,6 @@ const AppNavigator = () => {
           title: 'Configuración',
           drawerIcon: ({ color, size }) => (
             <Settings color={color} size={size} />
-          ),
-        }}
-      />
-
-      {/* Opción: Acerca de */}
-      <Drawer.Screen
-        name="AcercaDe"
-        component={AboutScreen}
-        options={{
-          title: 'Acerca de',
-          drawerIcon: ({ color, size }) => (
-            <Info color={color} size={size} />
           ),
         }}
       />
