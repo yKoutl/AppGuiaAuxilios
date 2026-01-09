@@ -125,27 +125,9 @@ export default function CustomDrawerContent(props) {
         {sections.personalizacion.map(renderDrawerItem)}
       </DrawerContentScrollView>
 
-      {/* Footer con números de emergencia */}
+      {/* Footer con versión */}
       <View style={styles.footer}>
         <View style={styles.divider} />
-        <Text style={styles.footerTitle}>Emergencias Perú</Text>
-        <View style={styles.emergencyRow}>
-          <View style={styles.emergencyItem}>
-            <Text style={styles.emergencyIcon}>👮</Text>
-            <Text style={styles.emergencyNumber}>105</Text>
-            <Text style={styles.emergencyLabel}>Policía</Text>
-          </View>
-          <View style={styles.emergencyItem}>
-            <Text style={styles.emergencyIcon}>🚒</Text>
-            <Text style={styles.emergencyNumber}>116</Text>
-            <Text style={styles.emergencyLabel}>Bomberos</Text>
-          </View>
-          <View style={styles.emergencyItem}>
-            <Text style={styles.emergencyIcon}>🏥</Text>
-            <Text style={styles.emergencyNumber}>106</Text>
-            <Text style={styles.emergencyLabel}>SAMU</Text>
-          </View>
-        </View>
         <Text style={styles.version}>ContigoPE v1.0.0</Text>
       </View>
     </SafeAreaView>
@@ -200,53 +182,20 @@ const styles = StyleSheet.create({
   drawerLabel: {
     fontSize: 15,
     fontWeight: '600',
-    marginLeft: -16,
+    marginLeft: -20,
   },
   drawerItem: {
     borderRadius: 12,
     marginVertical: 2,
     marginHorizontal: 12,
-    paddingVertical: 4,
+    paddingVertical: 2,
   },
   footer: {
     padding: 16,
     backgroundColor: '#F9FAFB',
   },
-  footerTitle: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: '#6B7280',
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-    marginBottom: 12,
-    marginTop: 8,
-    textAlign: 'center',
-  },
-  emergencyRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 12,
-  },
-  emergencyItem: {
-    alignItems: 'center',
-  },
-  emergencyIcon: {
-    fontSize: 24,
-    marginBottom: 4,
-  },
-  emergencyNumber: {
-    fontSize: 18,
-    fontWeight: '800',
-    color: '#DC2626',
-    marginBottom: 2,
-  },
-  emergencyLabel: {
-    fontSize: 11,
-    color: '#6B7280',
-    fontWeight: '500',
-  },
   version: {
-    fontSize: 11,
+    fontSize: 12,
     color: '#9CA3AF',
     textAlign: 'center',
     marginTop: 8,

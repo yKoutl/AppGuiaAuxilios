@@ -39,10 +39,6 @@ const ValueCard = ({ icon: Icon, title, description, color }) => (
 );
 
 export default function NosPlametScreen({ navigation }) {
-  const handleMenuPress = () => {
-    navigation.openDrawer();
-  };
-
   const openEmail = () => {
     Linking.openURL('mailto:contacto@nosplanet.com').catch((err) =>
       console.error('Error al abrir email:', err)
@@ -88,22 +84,6 @@ export default function NosPlametScreen({ navigation }) {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        {/* Header */}
-        <LinearGradient
-          colors={['#DC2626', '#B91C1C']}
-          style={styles.header}
-        >
-          <TouchableOpacity onPress={handleMenuPress} style={styles.menuButton}>
-            <Text style={styles.menuIcon}>☰</Text>
-          </TouchableOpacity>
-
-          <View style={styles.headerLogoContainer}>
-            <Building2 color="#FFFFFF" size={48} />
-            <Text style={styles.headerTitle}>NOS PLANET S.A.C</Text>
-            <Text style={styles.headerSubtitle}>Soluciones tecnológicas • Perú</Text>
-          </View>
-        </LinearGradient>
-
         {/* Misión */}
         <View style={styles.missionSection}>
           <View style={styles.missionCard}>
@@ -205,38 +185,6 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingBottom: 20,
-  },
-  header: {
-    paddingTop: 20,
-    paddingBottom: 40,
-    paddingHorizontal: 20,
-    alignItems: 'center',
-  },
-  menuButton: {
-    position: 'absolute',
-    top: 20,
-    left: 20,
-    padding: 4,
-  },
-  menuIcon: {
-    fontSize: 28,
-    color: '#FFFFFF',
-  },
-  headerLogoContainer: {
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  headerTitle: {
-    fontSize: 28,
-    fontWeight: '900',
-    color: '#FFFFFF',
-    marginTop: 16,
-    letterSpacing: 0.5,
-  },
-  headerSubtitle: {
-    fontSize: 14,
-    color: 'rgba(255, 255, 255, 0.9)',
-    marginTop: 4,
   },
 
   // Misión

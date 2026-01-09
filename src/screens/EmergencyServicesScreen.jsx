@@ -93,10 +93,6 @@ export default function EmergencyServicesScreen({ navigation }) {
   const [selectedService, setSelectedService] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleMenuPress = () => {
-    navigation.openDrawer();
-  };
-
   const services = [
     {
       id: 1,
@@ -158,25 +154,12 @@ export default function EmergencyServicesScreen({ navigation }) {
     <SafeAreaView style={styles.container} edges={['left', 'right', 'bottom']}>
       <StatusBar barStyle="light-content" backgroundColor="#DC2626" />
 
-      {/* Header */}
-      <LinearGradient
-        colors={['#DC2626', '#B91C1C']}
-        style={styles.header}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent}
       >
-        <View style={styles.headerContent}>
-          <TouchableOpacity onPress={handleMenuPress} style={styles.menuButton}>
-            <Text style={styles.menuIcon}>☰</Text>
-          </TouchableOpacity>
-          
-          <View style={styles.headerTextContainer}>
-            <Text style={styles.headerTitle}>Emergencias</Text>
-            <Text style={styles.headerSubtitle}>Servicios de emergencia • Perú</Text>
-          </View>
-        </View>
-      </LinearGradient>
-
-      {/* Servicios */}
-      <View style={styles.servicesContainer}>
+        {/* Servicios */}
+        <View style={styles.servicesContainer}>
         {services.map((service) => (
           <TouchableOpacity
             key={service.id}
@@ -207,7 +190,7 @@ export default function EmergencyServicesScreen({ navigation }) {
         <Text style={styles.infoBoxText}>
           Las llamadas a estos números son gratuitas desde cualquier operador.
         </Text>
-      </View>
+      </ScrollView>
 
       {/* Modal de servicio */}
       <EmergencyServiceModal
@@ -224,35 +207,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F9FAFB',
   },
-  header: {
-    paddingTop: 20,
-    paddingBottom: 30,
-    paddingHorizontal: 20,
-  },
-  headerContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  menuButton: {
-    padding: 4,
-    marginRight: 16,
-  },
-  menuIcon: {
-    fontSize: 28,
-    color: '#FFFFFF',
-  },
-  headerTextContainer: {
-    flex: 1,
-  },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginBottom: 4,
-  },
-  headerSubtitle: {
-    fontSize: 14,
-    color: 'rgba(255, 255, 255, 0.9)',
+  scrollContent: {
+    paddingBottom: 20,
   },
   servicesContainer: {
     padding: 20,
