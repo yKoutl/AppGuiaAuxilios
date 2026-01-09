@@ -87,7 +87,7 @@ AppGuiaAuxilios/
 - Botones de llamada funcionales
 
 ### 7. Asistente IA (Gemini)
-- API Key: AIzaSyCfr5e2My5rljDqoynk2PhHDT-Uzfv857I
+- API Key: Configurada en variable de entorno EXPO_PUBLIC_GEMINI_API_KEY
 - Modelo: gemini-1.5-flash
 - Contexto: Especialista en primeros auxilios para Peru
 - Interfaz de chat con burbujas

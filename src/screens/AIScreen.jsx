@@ -17,8 +17,14 @@ import {
 } from 'react-native';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// Inicializar Gemini AI
-const genAI = new GoogleGenerativeAI('AIzaSyCfr5e2My5rljDqoynk2PhHDT-Uzfv857I');
+// Inicializar Gemini AI con variable de entorno
+const GEMINI_API_KEY = process.env.EXPO_PUBLIC_GEMINI_API_KEY;
+
+if (!GEMINI_API_KEY) {
+  console.error('ERROR: EXPO_PUBLIC_GEMINI_API_KEY no está configurada');
+}
+
+const genAI = new GoogleGenerativeAI(GEMINI_API_KEY || '');
 
 const AIScreen = () => {
   const [messages, setMessages] = useState([]);

@@ -185,13 +185,15 @@ npm start -- --clear --port 8082
 
 ## 📝 CONFIGURACIÓN DE LA API KEY
 
-La API Key de Gemini está configurada en:
-```javascript
-// src/screens/AIScreen.jsx
-const genAI = new GoogleGenerativeAI('AIzaSyCfr5e2My5rljDqoynk2PhHDT-Uzfv857I');
+La API Key de Gemini se configura mediante variables de entorno:
+
+1. Copia el archivo `.env.example` a `.env`
+2. Agrega tu API Key en el archivo `.env`:
+```bash
+EXPO_PUBLIC_GEMINI_API_KEY=tu_api_key_aqui
 ```
 
-**Nota**: Esta es tu API Key real. Guárdala de forma segura.
+**Nota**: El archivo `.env` está en `.gitignore` y NO se subirá al repositorio.
 
 ---
 
