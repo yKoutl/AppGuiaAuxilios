@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 30,
     borderWidth: 4,
-    borderColor: 'rgba(30, 78, 216, 0.25)', // hsl(228, 97%, 42%) con opacity
+    borderColor: 'rgba(220, 38, 38, 0.25)', // #DC2626 con opacity
   },
   spinnerInner: {
     position: 'absolute',
@@ -91,6 +91,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderWidth: 4,
     borderColor: 'transparent',
-    borderTopColor: '#1E4ED8', // hsl(228, 97%, 42%)
+    borderTopColor: '#DC2626', // Rojo emergencia
   },
 });

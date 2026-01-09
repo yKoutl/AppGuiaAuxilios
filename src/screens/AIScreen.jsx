@@ -80,12 +80,17 @@ Importante: Si no estás seguro de algo, admítelo y recomienda buscar atención
     setLoading(true);
 
     try {
-      // Generar respuesta
-      const chat = model.startChat({
-        history: messages.map((msg) => ({
+      // Crear historial solo con mensajes reales del chat (sin el mensaje de bienvenida inicial)
+      const chatHistory = messages
+        .filter(msg => msg.id !== '1') // Excluir mensaje de bienvenida
+        .map((msg) => ({
           role: msg.isUser ? 'user' : 'model',
           parts: [{ text: msg.text }],
-        })),
+        }));
+
+      // Generar respuesta
+      const chat = model.startChat({
+        history: chatHistory,
       });
 
       const result = await chat.sendMessage(inputText.trim());
@@ -102,9 +107,24 @@ Importante: Si no estás seguro de algo, admítelo y recomienda buscar atención
       setMessages((prev) => [...prev, aiMessage]);
     } catch (error) {
       console.error('Error con Gemini:', error);
+      
+      // Modal de error mejorado
       Alert.alert(
-        'Error',
-        'No pude conectar con el asistente. Verifica tu conexión a internet.'
+        '❌ Error de Conexión',
+        'No pude conectar con el asistente inteligente.\n\n' +
+        'Por favor verifica:\n' +
+        '• Tu conexión a internet\n' +
+        '• Que la API key esté configurada correctamente\n\n' +
+        'Si el problema persiste, intenta reiniciar la aplicación.',
+        [
+          {
+            text: 'Entendido',
+            style: 'default'
+          }
+        ],
+        {
+          cancelable: true
+        }
       );
     } finally {
       setLoading(false);

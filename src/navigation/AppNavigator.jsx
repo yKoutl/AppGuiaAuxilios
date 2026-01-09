@@ -14,6 +14,9 @@ import MapScreen from '../screens/MapScreen.jsx';
 import AIScreen from '../screens/AIScreen.jsx';
 import AboutScreen from '../screens/AboutScreen.jsx';
 
+// Importar componente personalizado del drawer
+import CustomDrawerContent from '../components/CustomDrawerContent.jsx';
+
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -100,9 +103,10 @@ const AppNavigator = () => {
   return (
     <Drawer.Navigator
       initialRouteName="Inicio"
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         drawerStyle: {
-          backgroundColor: '#F9FAFB',
+          backgroundColor: '#FFFFFF',
           width: 280,
         },
         drawerActiveTintColor: '#DC2626',
@@ -117,6 +121,7 @@ const AppNavigator = () => {
           marginVertical: 4,
           paddingVertical: 4,
         },
+        drawerActiveBackgroundColor: 'rgba(220, 38, 38, 0.1)',
         headerStyle: {
           backgroundColor: '#DC2626',
         },

@@ -9,10 +9,10 @@ import {
   TextInput,
   FlatList,
   StyleSheet,
-  SafeAreaView,
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import EmergencyCard from '../components/EmergencyCard.jsx';
 import { emergenciasData } from '../data/data.jsx';
 
