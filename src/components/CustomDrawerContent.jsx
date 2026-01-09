@@ -253,22 +253,3 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
-    marginBottom: 4,
-  },
-  emergencyNumber: {
-    fontSize: 18,
-    fontWeight: '800',
-    color: '#DC2626',
-  },
-  emergencyLabel: {
-    fontSize: 11,
-    color: '#6B7280',
-    marginTop: 2,
-  },
-  version: {
-    fontSize: 11,
-    color: '#9CA3AF',
-    textAlign: 'center',
-    marginTop: 8,
-  },
-});
