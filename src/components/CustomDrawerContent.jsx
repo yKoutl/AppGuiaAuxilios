@@ -9,13 +9,18 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  ScrollView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
+import {
+  Home,
+  Bot,
+  Settings,
+  Info,
+} from 'lucide-react-native';
 
 export default function CustomDrawerContent(props) {
   return (
@@ -33,6 +38,11 @@ export default function CustomDrawerContent(props) {
 
       {/* Línea separadora */}
       <View style={styles.divider} />
+
+      {/* Sección: Principal */}
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Principal</Text>
+      </View>
 
       {/* Lista de opciones del drawer */}
       <DrawerContentScrollView
@@ -64,7 +74,7 @@ export default function CustomDrawerContent(props) {
             <Text style={styles.emergencyLabel}>SAMU</Text>
           </View>
         </View>
-        <Text style={styles.version}>v1.0.0</Text>
+        <Text style={styles.version}>ContigoPE v1.0.0</Text>
       </View>
     </SafeAreaView>
   );
@@ -101,8 +111,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#E5E7EB',
     marginVertical: 8,
   },
+  sectionContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 8,
+  },
+  sectionTitle: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#9CA3AF',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
   drawerContent: {
-    paddingTop: 8,
+    paddingTop: 0,
   },
   footer: {
     padding: 16,

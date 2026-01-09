@@ -6,6 +6,7 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, Image } from 'react-native';
+import { Home, Bot, Settings, Info } from 'lucide-react-native';
 
 // Importar pantallas
 import HomeScreen from '../screens/HomeScreen.jsx';
@@ -13,6 +14,7 @@ import DetailScreen from '../screens/DetailScreen.jsx';
 import MapScreen from '../screens/MapScreen.jsx';
 import AIScreen from '../screens/AIScreen.jsx';
 import AboutScreen from '../screens/AboutScreen.jsx';
+import ConfigScreen from '../screens/ConfigScreen.jsx';
 
 // Importar componente personalizado del drawer
 import CustomDrawerContent from '../components/CustomDrawerContent.jsx';
@@ -82,21 +84,6 @@ const HomeStack = () => {
 };
 
 // ============================================
-// PANTALLA DE CONFIGURACIÓN (PLACEHOLDER)
-// ============================================
-const ConfigScreen = () => {
-  return (
-    <View style={styles.centerContainer}>
-      <Text style={styles.emoji}>⚙️</Text>
-      <Text style={styles.placeholderTitle}>Configuración</Text>
-      <Text style={styles.placeholderText}>
-        Próximamente: Ajustes de la aplicación
-      </Text>
-    </View>
-  );
-};
-
-// ============================================
 // DRAWER NAVIGATOR (MENÚ PRINCIPAL)
 // ============================================
 const AppNavigator = () => {
@@ -144,7 +131,7 @@ const AppNavigator = () => {
         component={HomeStack}
         options={{
           drawerIcon: ({ color, size }) => (
-            <Text style={{ fontSize: size, color }}>🏠</Text>
+            <Home color={color} size={size} />
           ),
           headerShown: false,
         }}
@@ -157,7 +144,7 @@ const AppNavigator = () => {
         options={{
           title: 'Asistente IA',
           drawerIcon: ({ color, size }) => (
-            <Text style={{ fontSize: size, color }}>🤖</Text>
+            <Bot color={color} size={size} />
           ),
         }}
       />
@@ -169,7 +156,7 @@ const AppNavigator = () => {
         options={{
           title: 'Configuración',
           drawerIcon: ({ color, size }) => (
-            <Text style={{ fontSize: size, color }}>⚙️</Text>
+            <Settings color={color} size={size} />
           ),
         }}
       />
@@ -181,7 +168,7 @@ const AppNavigator = () => {
         options={{
           title: 'Acerca de',
           drawerIcon: ({ color, size }) => (
-            <Text style={{ fontSize: size, color }}>ℹ️</Text>
+            <Info color={color} size={size} />
           ),
         }}
       />
