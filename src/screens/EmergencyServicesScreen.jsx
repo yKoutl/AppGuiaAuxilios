@@ -180,16 +180,17 @@ export default function EmergencyServicesScreen({ navigation }) {
         ))}
       </View>
 
-      {/* Info adicional */}
-      <View style={styles.infoBox}>
-        <Text style={styles.infoBoxTitle}>ℹ️ Información Importante</Text>
-        <Text style={styles.infoBoxText}>
-          Estos números están disponibles 24 horas, los 7 días de la semana.
-          En caso de emergencia real, no dudes en llamar.
-        </Text>
-        <Text style={styles.infoBoxText}>
-          Las llamadas a estos números son gratuitas desde cualquier operador.
-        </Text>
+        {/* Info adicional */}
+        <View style={styles.infoBox}>
+          <Text style={styles.infoBoxTitle}>ℹ️ Información Importante</Text>
+          <Text style={styles.infoBoxText}>
+            Estos números están disponibles 24 horas, los 7 días de la semana.
+            En caso de emergencia real, no dudes en llamar.
+          </Text>
+          <Text style={styles.infoBoxText}>
+            Las llamadas a estos números son gratuitas desde cualquier operador.
+          </Text>
+        </View>
       </ScrollView>
 
       {/* Modal de servicio */}
