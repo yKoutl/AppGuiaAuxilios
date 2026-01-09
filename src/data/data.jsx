@@ -238,80 +238,81 @@ export const emergenciasData = [
 // SERVICIOS DE EMERGENCIA CON MAPAS
 // ============================================
 
-// Datos de servicios con coordenadas ficticias (Zona Bogotá, Colombia como ejemplo)
+// Datos de servicios de emergencia - PERÚ
+// Coordenadas simuladas en distritos clave de Lima
 export const serviciosData = {
   policia: {
-    nombre: 'Policía Nacional',
-    numero: '123',
+    nombre: 'Policía Nacional del Perú',
+    numero: '105',
     color: '#1E40AF', // Azul oscuro
     marcadores: [
       {
         id: 'pol1',
-        latitude: 4.7110,
-        longitude: -74.0721,
-        titulo: 'CAI Centro',
+        latitude: -12.0464,
+        longitude: -77.0428,
+        titulo: 'Comisaría Centro de Lima',
       },
       {
         id: 'pol2',
-        latitude: 4.6533,
-        longitude: -74.0836,
-        titulo: 'Estación Chapinero',
+        latitude: -12.1200,
+        longitude: -77.0300,
+        titulo: 'Comisaría Miraflores',
       },
       {
         id: 'pol3',
-        latitude: 4.6890,
-        longitude: -74.0547,
-        titulo: 'CAI Usaquén',
+        latitude: -11.9950,
+        longitude: -77.0650,
+        titulo: 'Comisaría Los Olivos',
       },
     ],
   },
   bomberos: {
-    nombre: 'Bomberos',
-    numero: '119',
+    nombre: 'CGBVP - Bomberos Perú',
+    numero: '116',
     color: '#DC2626', // Rojo
     marcadores: [
       {
         id: 'bomb1',
-        latitude: 4.7200,
-        longitude: -74.0640,
-        titulo: 'Estación Bomberos Norte',
+        latitude: -12.0550,
+        longitude: -77.0350,
+        titulo: 'Compañía B-1 Centro',
       },
       {
         id: 'bomb2',
-        latitude: 4.6410,
-        longitude: -74.0950,
-        titulo: 'Estación Centro',
+        latitude: -12.1100,
+        longitude: -77.0400,
+        titulo: 'Compañía B-8 Miraflores',
       },
       {
         id: 'bomb3',
-        latitude: 4.6780,
-        longitude: -74.0490,
-        titulo: 'Estación Oriente',
+        latitude: -12.0050,
+        longitude: -77.0700,
+        titulo: 'Compañía B-32 Los Olivos',
       },
     ],
   },
   hospital: {
-    nombre: 'Hospital / Urgencias',
-    numero: '132',
+    nombre: 'SAMU - Minsa',
+    numero: '106',
     color: '#059669', // Verde
     marcadores: [
       {
         id: 'hosp1',
-        latitude: 4.7030,
-        longitude: -74.0680,
-        titulo: 'Hospital San Ignacio',
+        latitude: -12.0600,
+        longitude: -77.0380,
+        titulo: 'Hospital Arzobispo Loayza',
       },
       {
         id: 'hosp2',
-        latitude: 4.6670,
-        longitude: -74.1030,
-        titulo: 'Hospital Santa Fe',
+        latitude: -12.1150,
+        longitude: -77.0320,
+        titulo: 'Clínica Internacional San Isidro',
       },
       {
         id: 'hosp3',
-        latitude: 4.6920,
-        longitude: -74.0380,
-        titulo: 'Clínica Marly',
+        latitude: -12.0000,
+        longitude: -77.0600,
+        titulo: 'Hospital Cayetano Heredia',
       },
     ],
   },

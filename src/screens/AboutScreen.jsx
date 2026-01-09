@@ -1,0 +1,268 @@
+// ============================================
+// PANTALLA ACERCA DE
+// ============================================
+
+import React from 'react';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
+
+const { width } = Dimensions.get('window');
+
+const AboutScreen = ({ navigation }) => {
+  return (
+    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      {/* LOGO */}
+      <View style={styles.logoContainer}>
+        <Image
+          source={require('../../assets/logo.png')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+      </View>
+
+      {/* INFORMACIÓN */}
+      <View style={styles.infoContainer}>
+        <Text style={styles.appName}>Guía de Auxilios</Text>
+        <Text style={styles.tagline}>Tu asistente de primeros auxilios</Text>
+
+        <View style={styles.divider} />
+
+        {/* DESARROLLADOR */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Desarrollado por</Text>
+          <Text style={styles.developerName}>Tu Nombre</Text>
+        </View>
+
+        {/* VERSIÓN */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Versión</Text>
+          <Text style={styles.versionText}>1.0.0</Text>
+        </View>
+
+        <View style={styles.divider} />
+
+        {/* CARACTERÍSTICAS */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Características</Text>
+          <View style={styles.featuresList}>
+            <Text style={styles.featureItem}>✓ 12 guías de primeros auxilios</Text>
+            <Text style={styles.featureItem}>✓ Mapa de servicios de emergencia</Text>
+            <Text style={styles.featureItem}>✓ Asistente IA con Gemini</Text>
+            <Text style={styles.featureItem}>✓ GPS en tiempo real</Text>
+            <Text style={styles.featureItem}>✓ Funciona sin conexión</Text>
+          </View>
+        </View>
+
+        {/* NÚMEROS DE EMERGENCIA */}
+        <View style={styles.emergencyBox}>
+          <Text style={styles.emergencyTitle}>🚨 Números de Emergencia Perú</Text>
+          <View style={styles.emergencyNumbers}>
+            <View style={styles.emergencyItem}>
+              <Text style={styles.emergencyLabel}>SAMU</Text>
+              <Text style={styles.emergencyNumber}>106</Text>
+            </View>
+            <View style={styles.emergencyItem}>
+              <Text style={styles.emergencyLabel}>Policía</Text>
+              <Text style={styles.emergencyNumber}>105</Text>
+            </View>
+            <View style={styles.emergencyItem}>
+              <Text style={styles.emergencyLabel}>Bomberos</Text>
+              <Text style={styles.emergencyNumber}>116</Text>
+            </View>
+          </View>
+        </View>
+
+        {/* AVISO */}
+        <View style={styles.disclaimer}>
+          <Text style={styles.disclaimerText}>
+            Esta aplicación proporciona información general de primeros auxilios.
+            No reemplaza la atención médica profesional. En caso de emergencia,
+            siempre contacta a los servicios de emergencia.
+          </Text>
+        </View>
+      </View>
+
+      {/* BOTÓN VOLVER */}
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={() => navigation.goBack()}
+        activeOpacity={0.8}
+      >
+        <Text style={styles.backButtonText}>← Volver</Text>
+      </TouchableOpacity>
+
+      {/* COPYRIGHT */}
+      <Text style={styles.copyright}>
+        © 2026 Guía de Auxilios. Perú.
+      </Text>
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F9FAFB',
+  },
+  content: {
+    alignItems: 'center',
+    padding: 24,
+    paddingTop: 40,
+  },
+  logoContainer: {
+    width: width * 0.5,
+    height: width * 0.5,
+    marginBottom: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logo: {
+    width: '100%',
+    height: '100%',
+  },
+  infoContainer: {
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    padding: 24,
+    marginBottom: 24,
+    // Sombra
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  appName: {
+    fontSize: 28,
+    fontWeight: '800',
+    color: '#DC2626',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  tagline: {
+    fontSize: 16,
+    color: '#6B7280',
+    textAlign: 'center',
+    marginBottom: 24,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: '#E5E7EB',
+    marginVertical: 20,
+  },
+  section: {
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#6B7280',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginBottom: 8,
+  },
+  developerName: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#1F2937',
+  },
+  versionText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#1F2937',
+  },
+  featuresList: {
+    marginTop: 8,
+  },
+  featureItem: {
+    fontSize: 15,
+    color: '#374151',
+    marginBottom: 8,
+    lineHeight: 22,
+  },
+  emergencyBox: {
+    backgroundColor: '#FEE2E2',
+    padding: 20,
+    borderRadius: 16,
+    marginBottom: 20,
+  },
+  emergencyTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#DC2626',
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  emergencyNumbers: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  emergencyItem: {
+    alignItems: 'center',
+  },
+  emergencyLabel: {
+    fontSize: 12,
+    color: '#991B1B',
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  emergencyNumber: {
+    fontSize: 28,
+    fontWeight: '800',
+    color: '#DC2626',
+  },
+  disclaimer: {
+    backgroundColor: '#F3F4F6',
+    padding: 16,
+    borderRadius: 12,
+    borderLeftWidth: 3,
+    borderLeftColor: '#6B7280',
+  },
+  disclaimerText: {
+    fontSize: 13,
+    color: '#4B5563',
+    lineHeight: 20,
+    textAlign: 'justify',
+  },
+  backButton: {
+    backgroundColor: '#DC2626',
+    paddingVertical: 16,
+    paddingHorizontal: 48,
+    borderRadius: 16,
+    marginBottom: 16,
+    // Sombra
+    shadowColor: '#DC2626',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 6,
+  },
+  backButtonText: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    letterSpacing: 0.5,
+  },
+  copyright: {
+    fontSize: 12,
+    color: '#9CA3AF',
+    marginBottom: 40,
+    textAlign: 'center',
+  },
+});
+
+export default AboutScreen;

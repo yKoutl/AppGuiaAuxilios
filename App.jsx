@@ -1,69 +1,76 @@
 // ============================================
-// APLICACIÓN PRINCIPAL - GUÍA DE AUXILIOS
+// APLICACIÓN PRINCIPAL - GUÍA DE AUXILIOS PRO
 // ============================================
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Importar las pantallas
-import HomeScreen from './src/screens/HomeScreen.jsx';
-import DetailScreen from './src/screens/DetailScreen.jsx';
-import MapScreen from './src/screens/MapScreen.jsx';
+// Importar navegadores y pantallas
+import AppNavigator from './src/navigation/AppNavigator.jsx';
+import OnboardingScreen from './src/screens/OnboardingScreen.jsx';
+import SplashScreen from './src/screens/SplashScreen.jsx';
 
-// Crear el Stack Navigator
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [showSplash, setShowSplash] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  // Verificar si el onboarding ya se completó
+  useEffect(() => {
+    checkOnboarding();
+  }, []);
+
+  const checkOnboarding = async () => {
+    try {
+      const onboardingCompleted = await AsyncStorage.getItem('onboardingCompleted');
+      
+      if (onboardingCompleted === 'true') {
+        // Ya completó el onboarding, ir directo a la app
+        setShowOnboarding(false);
+      } else {
+        // Primera vez, mostrar onboarding
+        setShowOnboarding(true);
+      }
+    } catch (error) {
+      console.error('Error verificando onboarding:', error);
+      setShowOnboarding(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Pantalla de splash inicial
+  if (showSplash) {
+    return (
+      <SplashScreen 
+        onFinish={() => setShowSplash(false)} 
+      />
+    );
+  }
+
+  // Pantalla de carga de datos
+  if (isLoading) {
+    return null; // El splash ya se mostró
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Home"
         screenOptions={{
-          headerStyle: {
-            backgroundColor: '#DC2626', // Rojo
-          },
-          headerTintColor: '#FFFFFF',
-          headerTitleStyle: {
-            fontWeight: '700',
-            fontSize: 18,
-          },
+          headerShown: false,
         }}
       >
-        {/* Pantalla Principal - Sin header */}
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            headerShown: false, // Ocultar header en Home
-          }}
-        />
-
-        {/* Pantalla de Detalle */}
-        <Stack.Screen
-          name="Detalle"
-          component={DetailScreen}
-          options={({ route }) => ({
-            title: route.params?.item?.titulo || 'Detalle',
-          })}
-        />
-
-        {/* Pantalla de Mapa */}
-        <Stack.Screen
-          name="Mapa"
-          component={MapScreen}
-          options={({ route }) => {
-            // Determinar el título según el servicio
-            const servicioKey = route.params?.servicioKey;
-            let title = 'Mapa';
-            
-            if (servicioKey === 'policia') title = 'Policía Nacional';
-            else if (servicioKey === 'bomberos') title = 'Bomberos';
-            else if (servicioKey === 'hospital') title = 'Hospital / Urgencias';
-            
-            return { title };
-          }}
-        />
+        {showOnboarding ? (
+          // Mostrar onboarding
+          <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+        ) : null}
+        
+        {/* App principal con Drawer */}
+        <Stack.Screen name="Main" component={AppNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );

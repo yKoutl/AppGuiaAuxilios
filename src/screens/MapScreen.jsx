@@ -1,8 +1,8 @@
 // ============================================
-// PANTALLA DE MAPA - SERVICIOS DE EMERGENCIA
+// PANTALLA DE MAPA - SERVICIOS DE EMERGENCIA CON GPS REAL
 // ============================================
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -10,29 +10,73 @@ import {
   TouchableOpacity,
   Linking,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import * as Location from 'expo-location';
 import { serviciosData } from '../data/data.jsx';
 
 const MapScreen = ({ route }) => {
-  // Obtener la clave del servicio desde los parámetros de navegación
   const { servicioKey } = route.params;
-  
-  // Obtener los datos del servicio correspondiente
   const servicio = serviciosData[servicioKey];
+  
+  const [userLocation, setUserLocation] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Configuración inicial del mapa (centrado en el primer marcador)
-  const initialRegion = {
-    latitude: servicio.marcadores[0].latitude,
-    longitude: servicio.marcadores[0].longitude,
-    latitudeDelta: 0.15,
-    longitudeDelta: 0.15,
+  // Obtener ubicación del usuario al cargar
+  useEffect(() => {
+    getUserLocation();
+  }, []);
+
+  const getUserLocation = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      
+      if (status !== 'granted') {
+        Alert.alert(
+          'Permiso Denegado',
+          'No se puede acceder a tu ubicación. Se mostrará Lima por defecto.'
+        );
+        setLoading(false);
+        return;
+      }
+
+      const location = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Balanced,
+      });
+
+      setUserLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+    } catch (error) {
+      console.error('Error obteniendo ubicación:', error);
+      Alert.alert('Error', 'No se pudo obtener tu ubicación');
+    } finally {
+      setLoading(false);
+    }
   };
+
+  // Configuración inicial del mapa
+  const initialRegion = userLocation
+    ? {
+        latitude: userLocation.latitude,
+        longitude: userLocation.longitude,
+        latitudeDelta: 0.15,
+        longitudeDelta: 0.15,
+      }
+    : {
+        // Ubicación por defecto (Centro de Lima)
+        latitude: -12.0464,
+        longitude: -77.0428,
+        latitudeDelta: 0.15,
+        longitudeDelta: 0.15,
+      };
 
   // Función para realizar llamada telefónica
   const handleLlamar = () => {
     const phoneNumber = servicio.numero;
-    
+
     Alert.alert(
       'Llamar a Emergencias',
       `¿Deseas llamar al ${servicio.nombre} (${phoneNumber})?`,
@@ -53,6 +97,15 @@ const MapScreen = ({ route }) => {
     );
   };
 
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#DC2626" />
+        <Text style={styles.loadingText}>Obteniendo tu ubicación...</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       {/* MAPA */}
@@ -62,8 +115,23 @@ const MapScreen = ({ route }) => {
         initialRegion={initialRegion}
         showsUserLocation
         showsMyLocationButton
+        showsCompass
       >
-        {/* MARCADORES */}
+        {/* MARCADOR DEL USUARIO */}
+        {userLocation && (
+          <Marker
+            coordinate={userLocation}
+            title="Tu ubicación"
+            description="Estás aquí"
+            pinColor="#4B5563"
+          >
+            <View style={styles.userMarker}>
+              <Text style={styles.userMarkerText}>📍</Text>
+            </View>
+          </Marker>
+        )}
+
+        {/* MARCADORES DEL SERVICIO */}
         {servicio.marcadores.map((marcador) => (
           <Marker
             key={marcador.id}
@@ -82,7 +150,7 @@ const MapScreen = ({ route }) => {
       <View style={styles.infoCard}>
         {/* Nombre del servicio */}
         <Text style={styles.serviceName}>{servicio.nombre}</Text>
-        
+
         {/* Número de emergencia gigante */}
         <Text style={[styles.serviceNumber, { color: servicio.color }]}>
           {servicio.numero}
@@ -102,6 +170,16 @@ const MapScreen = ({ route }) => {
         <Text style={styles.infoText}>
           {servicio.marcadores.length} ubicaciones cercanas en el mapa
         </Text>
+        
+        {userLocation ? (
+          <Text style={styles.locationText}>
+            📍 Mostrando tu ubicación actual
+          </Text>
+        ) : (
+          <Text style={styles.locationText}>
+            ℹ️ Ubicación por defecto: Lima Centro
+          </Text>
+        )}
       </View>
     </View>
   );
@@ -112,7 +190,31 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   map: {
-    flex: 1, // El mapa ocupa toda la pantalla
+    flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F9FAFB',
+  },
+  loadingText: {
+    marginTop: 16,
+    fontSize: 16,
+    color: '#6B7280',
+  },
+  userMarker: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 3,
+    borderColor: '#DC2626',
+  },
+  userMarkerText: {
+    fontSize: 20,
   },
   infoCard: {
     position: 'absolute',
@@ -123,7 +225,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 24,
     alignItems: 'center',
-    // Sombra pronunciada
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -155,7 +256,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     width: '100%',
     marginBottom: 12,
-    // Sombra
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -178,6 +278,12 @@ const styles = StyleSheet.create({
   infoText: {
     fontSize: 13,
     color: '#6B7280',
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+  locationText: {
+    fontSize: 12,
+    color: '#9CA3AF',
     textAlign: 'center',
     fontStyle: 'italic',
   },
