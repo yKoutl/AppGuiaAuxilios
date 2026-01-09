@@ -12,6 +12,8 @@ import {
   StatusBar,
   Modal,
   Pressable,
+  ScrollView,
+  Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -93,6 +95,10 @@ export default function EmergencyServicesScreen({ navigation }) {
   const [selectedService, setSelectedService] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
+  const handleMenuPress = () => {
+    navigation.openDrawer();
+  };
+
   const services = [
     {
       id: 1,
@@ -153,6 +159,32 @@ export default function EmergencyServicesScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right', 'bottom']}>
       <StatusBar barStyle="light-content" backgroundColor="#DC2626" />
+      
+      {/* Header */}
+      <LinearGradient
+        colors={['#DC2626', '#B91C1C']}
+        style={styles.header}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        <TouchableOpacity
+          style={styles.menuButton}
+          onPress={handleMenuPress}
+          activeOpacity={0.7}
+        >
+          <View style={styles.menuIcon}>
+            <View style={styles.menuLine} />
+            <View style={styles.menuLine} />
+            <View style={styles.menuLine} />
+          </View>
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Emergencias</Text>
+        <Image
+          source={require('../../assets/logo.png')}
+          style={styles.headerLogo}
+          resizeMode="contain"
+        />
+      </LinearGradient>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -207,8 +239,43 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F9FAFB',
+  },  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
-  scrollContent: {
+  menuButton: {
+    padding: 8,
+    width: 40,
+  },
+  menuIcon: {
+    width: 24,
+    height: 18,
+    justifyContent: 'space-between',
+  },
+  menuLine: {
+    width: '100%',
+    height: 3,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 2,
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    letterSpacing: 0.5,
+  },
+  headerLogo: {
+    width: 40,
+    height: 40,
+  },  scrollContent: {
     paddingBottom: 20,
   },
   servicesContainer: {

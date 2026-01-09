@@ -16,7 +16,7 @@ import AIScreen from '../screens/AIScreen.jsx';
 import AboutScreen from '../screens/AboutScreen.jsx';
 import ConfigScreen from '../screens/ConfigScreen.jsx';
 import EmergencyServicesScreen from '../screens/EmergencyServicesScreen.jsx';
-import NosPlametScreen from '../screens/NosPlametScreen.jsx';
+import NosPlanetScreen from '../screens/NosPlanetScreen.jsx';
 
 // Importar componente personalizado del drawer
 import CustomDrawerContent from '../components/CustomDrawerContent.jsx';
@@ -176,7 +176,7 @@ const AppNavigator = () => {
 
       <Drawer.Screen
         name="NosPlanet"
-        component={NosPlametScreen}
+        component={NosPlanetScreen}
         options={{
           title: 'Nos Planet S.A.C',
           drawerIcon: ({ color, size }) => (

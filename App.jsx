@@ -45,16 +45,12 @@ export default function App() {
 
   // Pantalla de splash inicial
   if (showSplash) {
-    return (
-      <SplashScreen 
-        onFinish={() => setShowSplash(false)} 
-      />
-    );
+    return <SplashScreen onFinish={() => setShowSplash(false)} />;
   }
 
   // Pantalla de carga de datos
   if (isLoading) {
-    return null; // El splash ya se mostró
+    return null;
   }
 
   return (
@@ -65,12 +61,10 @@ export default function App() {
         }}
       >
         {showOnboarding ? (
-          // Mostrar onboarding
           <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-        ) : null}
-        
-        {/* App principal con Drawer */}
-        <Stack.Screen name="Main" component={AppNavigator} />
+        ) : (
+          <Stack.Screen name="Main" component={AppNavigator} />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

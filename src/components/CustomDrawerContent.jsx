@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
   drawerLabel: {
     fontSize: 15,
     fontWeight: '600',
-    marginLeft: -20,
+    marginLeft: -16,
   },
   drawerItem: {
     borderRadius: 12,
